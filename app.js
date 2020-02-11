@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello');
-});
+const router = require('./src/routes');
+
+app.use('/', router);
 
 app.listen(3000, (err) => {
   if (err) {

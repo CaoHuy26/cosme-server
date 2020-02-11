@@ -16,6 +16,12 @@
   },
   "rules": {
     "no-console": "off",
-    "import/newline-after-import": "off"
+    "import/newline-after-import": "off",
+    "no-trailing-spaces": "off",
+    "comma-dangle": "off",
+    "arrow-parens": "off",
+    "eol-last": "off",
+    "no-lonely-if": "off",
+    "brace-style": "off"
   }
 }

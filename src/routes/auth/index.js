@@ -1,43 +1,15 @@
 const authRouter = require('express').Router();
-const User = require('../../models/User');
+const login = require('./login');
+const register = require('./register');
 
-authRouter.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({
-    where: {
-      email
-    }
-  });
-  if (!user) {
-    res.send(`Tai khoan ${email} khong ton tai`);
-  } 
-  else {
-    if (user.password !== password) {
-      res.send('Sai mat khau');
-    }
-    else {
-      res.send('Dnag nhat thanh cong');
-    }
-  }
-});
+const { 
+  userValidationLoginRules,
+  userValidationRegisterRules,
+  validate 
+} = require('../../middlewares/validator');
 
-authRouter.post('/register', async (req, res) => {
-  const { email, password } = req.body;
-  const isUserExist = await User.findOne({
-    where: {
-      email
-    }
-  });
-  if (isUserExist) {
-    res.send(`Tai khoan ${email} da ton tai`);
-  }
-  else {
-    const user = await User.create({
-      email,
-      password,
-    });
-    res.json(user);
-  }
-});
+authRouter.post('/login', userValidationLoginRules(), validate, login);
+
+authRouter.post('/register', userValidationRegisterRules(), validate, register);
 
 module.exports = authRouter;

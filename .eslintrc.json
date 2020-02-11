@@ -22,6 +22,8 @@
     "arrow-parens": "off",
     "eol-last": "off",
     "no-lonely-if": "off",
-    "brace-style": "off"
+    "brace-style": "off",
+    "arrow-body-style": "off",
+    "newline-per-chained-call": "off"
   }
 }

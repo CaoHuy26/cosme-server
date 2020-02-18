@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     }
   });
   if (user) {
-    res.status(500).json({
+    res.status(200).json({
       statusCode: 500,
       susscess: false,
       message: `${email} already in use`

@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     }
   });
   if (!user) {
-    res.status(500).json({
+    res.status(200).json({
       statusCode: 500,
       success: false,
       message: `User ${email} is not exist`
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
   }
   else {
     if (user.password !== password) {
-      res.status(500).json({
+      res.status(200).json({
         statusCode: 500,
         success: false,
         message: `Password is does not match for user ${user.email}`

@@ -28,8 +28,8 @@ const schema = {
   }
 };
 
-const Vendor = sequelize.define(
-  'vendor',
+const Manufacturer = sequelize.define(
+  'manufacturer',
   schema,
   {
     freezeTable: true,
@@ -37,4 +37,4 @@ const Vendor = sequelize.define(
   }
 );
 
-module.exports = Vendor;
+module.exports = Manufacturer;

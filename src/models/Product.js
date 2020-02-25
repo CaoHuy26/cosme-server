@@ -10,8 +10,10 @@ const schema = {
     defaultValue: () => uuid()
   },
   categoryId: {
-    type: DataTypes.UUID,
-    allowNull: false
+    type: DataTypes.UUID
+  },
+  brandId: {
+    type: DataTypes.UUID
   },
   name: {
     type: DataTypes.STRING,
@@ -26,7 +28,8 @@ const schema = {
   },
   stock: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 1
   },
   active: {
     type: DataTypes.BOOLEAN,

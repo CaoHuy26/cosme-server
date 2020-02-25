@@ -9,7 +9,7 @@ const schema = {
     allowNull: false,
     dafaultValue: () => uuid()
   },
-  vendorId: {
+  manufacturerId: {
     type: DataTypes.UUID
   },
   brandName: {

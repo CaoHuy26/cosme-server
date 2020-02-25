@@ -17,6 +17,10 @@ const schema = {
     tpye: DataTypes.STRING,
     allowNull: false
   },
+  isThumbnail: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

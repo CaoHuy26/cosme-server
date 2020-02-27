@@ -32,7 +32,7 @@ const Manufacturer = sequelize.define(
   'manufacturer',
   schema,
   {
-    freezeTable: true,
+    freezeTableName: true,
     timestamps: false
   }
 );

@@ -36,7 +36,7 @@ const Category = sequelize.define(
   'category',
   schema,
   {
-    freezeTable: true,
+    freezeTableName: true,
     timestamps: false
   }
 );

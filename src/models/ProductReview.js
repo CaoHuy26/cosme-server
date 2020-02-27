@@ -37,7 +37,7 @@ const ProductReview = sequelize.define(
   'product_review',
   schema,
   {
-    freezeTable: true,
+    freezeTableName: true,
     timestamps: false
   }
 );

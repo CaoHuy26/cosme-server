@@ -37,7 +37,7 @@ const ProductImage = sequelize.define(
   'product_image',
   schema,
   {
-    freezeTable: true,
+    freezeTableName: true,
     timestamps: false
   }
 );

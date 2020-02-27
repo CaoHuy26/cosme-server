@@ -35,7 +35,7 @@ const Brand = sequelize.define(
   'brand',
   schema,
   {
-    freezeTable: true,
+    freezeTableName: true,
     timestamps: false
   }
 );

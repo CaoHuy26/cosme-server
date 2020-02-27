@@ -9,34 +9,13 @@ const schema = {
     allowNull: false,
     defaultValue: () => uuid()
   },
-  categoryId: {
-    type: DataTypes.UUID
-  },
-  brandId: {
-    type: DataTypes.UUID
-  },
-  name: {
-    type: DataTypes.STRING,
+  order_id: {
+    type: DataTypes.UUID,
     allowNull: false
   },
-  sku: {
-    type: DataTypes.STRING
-  },
-  price: {
-    type: DataTypes.DECIMAL,
+  order_status_id: {
+    type: DataTypes.UUID,
     allowNull: false
-  },
-  description: {
-    type: DataTypes.STRING,
-  },
-  stock: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 1
-  },
-  active: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -50,8 +29,8 @@ const schema = {
   }
 };
 
-const Product = sequelize.define(
-  'product',
+const OrderStatusHistory = sequelize.define(
+  'order_status_history',
   schema,
   {
     freezeTableName: true,
@@ -59,4 +38,4 @@ const Product = sequelize.define(
   }
 );
 
-module.exports = Product;
+module.exports = OrderStatusHistory;

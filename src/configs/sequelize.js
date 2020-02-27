@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize } = require('sequelize');
 
 const DB_NAME = 'cosme';
 const DB_USERNAME = 'root';

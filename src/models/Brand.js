@@ -2,12 +2,14 @@ const { DataTypes } = require('sequelize');
 const uuid = require('uuid/v4');
 const sequelize = require('../configs/sequelize');
 
+const Manufacturer = require('./Manufacturer');
+
 const schema = {
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
     allowNull: false,
-    dafaultValue: () => uuid()
+    defaultValue: () => uuid()
   },
   manufacturerId: {
     type: DataTypes.UUID
@@ -22,7 +24,7 @@ const schema = {
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    dafaultValue: () => new Date()
+    defaultValue: () => new Date()
   },
   updatedAt: {
     type: DataTypes.DATE,
@@ -39,5 +41,15 @@ const Brand = sequelize.define(
     timestamps: false
   }
 );
+
+Brand.associations = (models) => {
+  Brand.hasMany(models.Product, {
+    foreignKey: 'brandId'
+  })
+};
+
+Brand.belongsTo(Manufacturer, {
+  foreignKey: 'manufacturerId'
+});
 
 module.exports = Brand;

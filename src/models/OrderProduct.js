@@ -2,6 +2,9 @@ const { DataTypes } = require('sequelize');
 const uuid = require('uuid/v4');
 const sequelize = require('../configs/sequelize');
 
+const Product = require('./Product');
+const Order = require('./Order');
+
 const schema = {
   id: {
     type: DataTypes.UUID,
@@ -35,7 +38,7 @@ const schema = {
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    dafaultValue: () => new Date()
+    defaultValue: () => new Date()
   },
   updatedAt: {
     type: DataTypes.DATE,
@@ -52,5 +55,13 @@ const OrderProduct = sequelize.define(
     timestamps: false
   }
 );
+
+OrderProduct.belongsTo(Product, {
+  foreignKey: 'productId'
+});
+
+OrderProduct.belongsTo(Order, {
+  foreignKey: 'orderId'
+});
 
 module.exports = OrderProduct;

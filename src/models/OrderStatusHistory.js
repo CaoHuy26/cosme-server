@@ -2,6 +2,9 @@ const { DataTypes } = require('sequelize');
 const uuid = require('uuid/v4');
 const sequelize = require('../configs/sequelize');
 
+const Order = require('./Order');
+const OrderStatus = require('./OrderStatus');
+
 const schema = {
   id: {
     type: DataTypes.UUID,
@@ -9,18 +12,18 @@ const schema = {
     allowNull: false,
     defaultValue: () => uuid()
   },
-  order_id: {
+  orderId: {
     type: DataTypes.UUID,
     allowNull: false
   },
-  order_status_id: {
+  orderStatusId: {
     type: DataTypes.UUID,
     allowNull: false
   },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    dafaultValue: () => new Date()
+    defaultValue: () => new Date()
   },
   updatedAt: {
     type: DataTypes.DATE,
@@ -37,5 +40,13 @@ const OrderStatusHistory = sequelize.define(
     timestamps: false
   }
 );
+
+OrderStatusHistory.belongsTo(Order, {
+  foreignKey: 'orderId'
+});
+
+OrderStatusHistory.belongsTo(OrderStatus, {
+  foreignKey: 'orderStatusId'
+});
 
 module.exports = OrderStatusHistory;

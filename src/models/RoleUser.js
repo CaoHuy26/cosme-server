@@ -2,7 +2,8 @@ const { DataTypes } = require('sequelize');
 const uuid = require('uuid/v4');
 const sequelize = require('../configs/sequelize');
 
-const Product = require('./Product');
+const User = require('./User');
+const Role = require('./Role');
 
 const schema = {
   id: {
@@ -11,18 +12,15 @@ const schema = {
     allowNull: false,
     defaultValue: () => uuid()
   },
-  productId: {
+  roleId: {
     type: DataTypes.UUID,
     allowNull: false
   },
-  image: { // path
-    tpye: DataTypes.STRING,
+  userId: {
+    type: DataTypes.UUID,
     allowNull: false
   },
-  isThumbnail: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
-  },
+  // TODO: Add more field here
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
@@ -35,8 +33,8 @@ const schema = {
   }
 };
 
-const ProductImage = sequelize.define(
-  'product_image',
+const RoleUser = sequelize.define(
+  'role_user',
   schema,
   {
     freezeTableName: true,
@@ -44,8 +42,12 @@ const ProductImage = sequelize.define(
   }
 );
 
-ProductImage.belongsTo(Product, {
-  foreignKey: 'productId'
+RoleUser.belongsTo(User, {
+  foreignKey: 'userId'
 });
 
-module.exports = ProductImage;
+RoleUser.belongsTo(Role, {
+  foreignKey: 'roleId'
+});
+
+module.exports = RoleUser;

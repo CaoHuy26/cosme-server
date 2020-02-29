@@ -23,7 +23,7 @@ const schema = {
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    dafaultValue: () => new Date()
+    defaultValue: () => new Date()
   },
   updatedAt: {
     type: DataTypes.DATE,
@@ -40,5 +40,12 @@ const Category = sequelize.define(
     timestamps: false
   }
 );
+
+// TODO: add sourceKey and targetKey
+Category.associations = (models) => {
+  Category.hasMany(models.Product, {
+    foreignKey: 'categoryId'
+  })
+};
 
 module.exports = Category;

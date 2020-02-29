@@ -23,7 +23,7 @@ const schema = {
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    dafaultValue: () => new Date()
+    defaultValue: () => new Date()
   },
   updatedAt: {
     type: DataTypes.DATE,
@@ -40,5 +40,14 @@ const OrderStatus = sequelize.define(
     timestamps: false
   }
 );
+
+OrderStatus.associations = (models) => {
+  OrderStatus.hasMany(models.OrderStatusHistory, {
+    foreignKey: 'orderStatusId'
+  }),
+  OrderStatus.hasMany(models.Order, {
+    foreignKey: 'orderStatusId'
+  })
+};
 
 module.exports = OrderStatus;

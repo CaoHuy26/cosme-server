@@ -2,6 +2,9 @@ const { DataTypes } = require('sequelize');
 const uuid = require('uuid/v4');
 const sequelize = require('../configs/sequelize');
 
+const OrderStatus = require('./OrderStatus');
+const User = require('./User');
+
 const schema = {
   id: {
     type: DataTypes.UUID,
@@ -9,45 +12,55 @@ const schema = {
     allowNull: false,
     defaultValue: () => uuid()
   },
-  user_id: {
+  userId: {
     type: DataTypes.UUID,
     allowNull: false
   },
-  status_id: {
+  orderStatusId: {
     type: DataTypes.UUID,
     allowNull: false
   },
-  receiver_name: {
+  receiverName: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  receiver_phone: {
+  receiverPhone: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  shipping_address: {
+  shippingAddress: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  shipping_date: {
+  shippingDate: {
     type: DataTypes.DATE,
     allowNull: false
   },
   comment: {
     type: DataTypes.STRING
   },
-  total_discount: {
+  totalDiscount: {
     type: DataTypes.DECIMAL
   },
-  total_shipping: {
+  totalShipping: {
     type: DataTypes.DECIMAL
   },
   total: {
     type: DataTypes.DECIMAL,
     allowNull: false
   },
-  total_tax: {
+  totalTax: {
     type: DataTypes.DECIMAL
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: () => new Date()
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: () => new Date()
   }
 };
 
@@ -59,5 +72,22 @@ const Order = sequelize.define(
     timestamps: false
   }
 );
+
+Order.associations = (models) => {
+  Order.hasMany(models.OrderProduct, {
+    foreignKey: 'orderId'
+  }),
+  Order.hasMany(models.OrderStatusHistory, {
+    foreignKey: 'orderId'
+  })
+};
+
+Order.belongsTo(OrderStatus, {
+  foreignKey: 'orderStatusId'
+});
+
+Order.belongsTo(User, {
+  foreignKey: 'userId'
+});
 
 module.exports = Order;

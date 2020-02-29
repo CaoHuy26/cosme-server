@@ -18,8 +18,7 @@ const schema = {
   },
   createdAt: {
     type: DataTypes.DATE,
-    allowNull: false,
-    dafaultValue: () => new Date()
+    defaultValue: () => new Date()
   },
   updatedAt: {
     type: DataTypes.DATE,
@@ -36,5 +35,12 @@ const Manufacturer = sequelize.define(
     timestamps: false
   }
 );
+
+// hasMany called with something that's not an instance of Sequelize.Model
+Manufacturer.associations = (models) => {
+  Manufacturer.hasMany(models.Brand, {
+    foreignKey: 'manufacturerId'
+  })
+};
 
 module.exports = Manufacturer;

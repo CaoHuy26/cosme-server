@@ -15,7 +15,21 @@ const schema = {
     type: DataTypes.UUID,
     allowNull: false
   },
-  // TODO: Add more field here
+  username: {
+    type: DataTypes.STRING
+  },
+  phone: {
+    type: DataTypes.STRING
+  },
+  dob: {
+    type: DataTypes.DATE
+  },
+  country: {
+    type: DataTypes.STRING
+  },
+  address: {
+    type: DataTypes.STRING
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

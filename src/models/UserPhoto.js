@@ -15,7 +15,10 @@ const schema = {
     type: DataTypes.UUID,
     allowNull: false
   },
-  // TODO: Add more field here
+  image: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

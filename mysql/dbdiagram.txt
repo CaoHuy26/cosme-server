@@ -1,0 +1,256 @@
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+
+TABLE brand {
+  id VARCHAR(45) [pk]
+  manufacturerId VARCHAR(45) [ref: > manufacturer.id]
+  brandName VARCHAR(45) [not null]
+  origin VARCHAR(45)
+  createdAt DATETIME
+  updatedAt DATETIME
+}  
+
+TABLE category {
+  id VARCHAR(45) [pk]
+  en_name VARCHAR(45) [not null]
+  vn_name VARCHAR(45) [not null]
+  imageUrl VARCHAR(45)
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+
+TABLE manufacturer {
+  id VARCHAR(45) [pk]
+  name VARCHAR(45) [not null]
+  location VARCHAR(45)
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+
+TABLE order {
+  id VARCHAR(45) [pk]
+  userId VARCHAR(45) [ref: > user.id]
+  orderStatusId VARCHAR(45) [ref: > order_status.id]
+  receiverName VARCHAR(45) [not null]
+  receiverPhone VARCHAR(45) [not null]
+  shippingAddress VARCHAR(45) [not null]
+  shippingDate DATETIME [not null]
+  comment VARCHAR(45)
+  totalDiscount DECIMAL
+  totalShipping DECIMAL
+  total DECIMAL [not null]
+  totalTax DECIMAL
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE order_product {
+  id VARCHAR(45) [pk]
+  productId VARCHAR(45) [ref: > product.id]
+  orderId VARCHAR(45) [ref: > order.id]
+  name VARCHAR(45)
+  sku VARCHAR(45)
+  price DECIMAL
+  priceWithTax DECIMAL
+  quantity INT
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE order_status {
+  id VARCHAR(45) [pk]
+  status TINYINT [not null]
+  statusName VARCHAR(45) [not null]
+  notification VARCHAR(45)
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE order_status_history {
+  id VARCHAR(45) [pk]
+  orderId VARCHAR(45) [ref: > order.id]
+  orderStatusId VARCHAR(45) [ref: > order_status.id]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE permission {
+  id VARCHAR(45) [pk]
+  name VARCHAR(45) [not null]
+  createdAt DATETIME
+  updatedAt DATETIME
+}  
+
+TABLE permission_role {
+  id VARCHAR(45) [pk]
+  roleId VARCHAR(45) [ref: > role.id]
+  permissionId VARCHAR(45) [ref: > permission.id]
+  createdAt VARCHAR(45)
+  updatedAt VARCHAR(45)
+}
+
+
+TABLE permission_user {
+  id VARCHAR(45) [pk]
+  permissionId VARCHAR(45) [ref: > permission.id]
+  userId VARCHAR(45) [ref: > user.id]
+  createdAt VARCHAR(45)
+  updatedAt VARCHAR(45)
+}
+
+TABLE product {
+  id VARCHAR(45) [pk]
+  categoryId VARCHAR(45) [ref: > category.id]
+  brandId VARCHAR(45) [ref: > brand.id]
+  name VARCHAR(45) [not null]
+  sku VARCHAR(45)
+  price DECIMAL [not null]
+  description VARCHAR(45)
+  stock VARCHAR(45) [not null, default: 1]
+  active TINYINT [not null]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE product_image {
+  id VARCHAR(45) [pk]
+  productId VARCHAR(45) [ref: > product.id]
+  image VARCHAR(45) [not null]
+  isThumbnail TINYINT [default: false]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE product_rating {
+  id VARCHAR(45) [pk]
+  productId VARCHAR(45) [ref: > product.id]
+  userId VARCHAR(45) [ref: > user.id]
+  rate INT [not null]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+
+TABLE product_review {
+  id VARCHAR(45) [pk]
+  productId VARCHAR(45) [ref: > product.id]
+  userId VARCHAR(45) [ref: > user.id]
+  review VARCHAR(45) [not null]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+
+TABLE role {
+  id VARCHAR(45) [pk]
+  name VARCHAR(45) [not null]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE role_user {
+  id VARCHAR(45) [pk]
+  roleId VARCHAR(45) [ref: > role.id]
+  userId VARCHAR(45) [ref: > user.id]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+
+TABLE user {
+  id VARCHAR(45) [pk]
+  email VARCHAR(45) [not null, unique]
+  password VARCHAR(45) [not null]
+  type INT [not null, default: 1]
+  active TINYINT [not null, default: true]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE user_log {
+  id VARCHAR(45) [pk]
+  userId VARCHAR(45) [ref: > user.id]
+  ipAddress VARCHAR(45)
+  deviceId VARCHAR(45)
+  action INT [not null]
+  activedAt DATETIME
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE user_photo {
+  id VARCHAR(45) [pk]
+  userId VARCHAR(45) [ref: > user.id]
+  image VARCHAR(45) [not null]
+  createdAt DATETIME
+  updatedAt DATETIME
+}
+
+TABLE user_profile {
+  id VARCHAR(45) [pk]
+  userId VARCHAR(45) [ref: > user.id]
+  username VARCHAR(45)
+  phone VARCHAR(45)
+  dob DATETIME
+  country VARCHAR(45)
+  address VARCHAR(45)
+  createdAt DATETIME 
+  updatedAt DATETIME 
+}
+
+// Creating references
+// You can also define relaionship separately
+// > many-to-one; < one-to-many; - one-to-one
+
+//----------------------------------------------//
+
+//// -- LEVEL 2
+//// -- Adding column settings
+
+// EXAMPLE:
+// Table order_items {
+//   order_id int [ref: > orders.id]
+//   product_id int    
+//   quantity int [default: 1] // default value
+// }
+
+// Ref: order_items.product_id > products.id
+
+// Table orders {
+//   id int [pk] // primary key
+//   user_id int [not null, unique]
+//   status varchar
+//   created_at varchar [note: 'When order created'] // add column note
+// }
+
+//----------------------------------------------//
+
+//// -- Level 3 
+//// -- Enum, Indexes
+
+// EXAMPLE
+// Enum for 'products' table below
+// Enum products_status {
+//   out_of_stock
+//   in_stock
+//   running_low [note: 'less than 20'] // add column note
+// }
+
+// // Indexes: You can define a single or multi-column index 
+// Table products {
+//   id int [pk]
+//   name varchar
+//   merchant_id int [not null]
+//   price int
+//   status products_status
+//   created_at datetime [default: `now()`]
+  
+//   Indexes {
+//     (merchant_id, status) [name:'product_status']
+//     id [unique]
+//   }
+// }

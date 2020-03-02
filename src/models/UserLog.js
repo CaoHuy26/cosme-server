@@ -15,7 +15,21 @@ const schema = {
     type: DataTypes.UUID,
     allowNull: false
   },
-  // TODO: Add more field here
+  ipAddress: {
+    type: DataTypes.STRING
+  },
+  deviceId: {
+    type: DataTypes.STRING
+  },
+  action: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  activedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: () => new Date()
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

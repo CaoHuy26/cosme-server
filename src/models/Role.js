@@ -9,7 +9,10 @@ const schema = {
     allowNull: false,
     defaultValue: () => uuid()
   },
-  // TODO: Add more field here
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

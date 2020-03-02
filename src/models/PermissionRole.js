@@ -20,7 +20,6 @@ const schema = {
     type: DataTypes.UUID,
     allowNull: false
   },
-  // TODO: Add more field here
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

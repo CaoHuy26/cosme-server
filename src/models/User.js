@@ -9,9 +9,6 @@ const schema = {
     allowNull: false,
     defaultValue: () => uuid()
   },
-  username: {
-    type: DataTypes.STRING
-  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -23,6 +20,16 @@ const schema = {
   password: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  type: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1
+  },
+  active: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
   },
   createdAt: {
     type: DataTypes.DATE,

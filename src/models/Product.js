@@ -65,16 +65,16 @@ const Product = sequelize.define(
 Product.associations = (models) => {
   Product.hasMany(models.ProductImage, {
     foreignKey: 'productId'
-  }),
+  });
   Product.hasMany(models.ProductReview, {
     foreignKey: 'productId'
-  }),
+  });
   Product.hasMany(models.ProductRating, {
     foreignKey: 'productId'
-  }),
+  });
   Product.hasMany(models.OrderProduct, {
     foreignKey: 'productId'
-  })
+  });
 };
 
 Product.belongsTo(Category, {
@@ -84,7 +84,5 @@ Product.belongsTo(Category, {
 Product.belongsTo(Brand, {
   foreignKey: 'brandId'
 });
-
-
 
 module.exports = Product;

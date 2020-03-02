@@ -76,10 +76,10 @@ const Order = sequelize.define(
 Order.associations = (models) => {
   Order.hasMany(models.OrderProduct, {
     foreignKey: 'orderId'
-  }),
+  });
   Order.hasMany(models.OrderStatusHistory, {
     foreignKey: 'orderId'
-  })
+  });
 };
 
 Order.belongsTo(OrderStatus, {

@@ -45,7 +45,7 @@ const Brand = sequelize.define(
 Brand.associations = (models) => {
   Brand.hasMany(models.Product, {
     foreignKey: 'brandId'
-  })
+  });
 };
 
 Brand.belongsTo(Manufacturer, {

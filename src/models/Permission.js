@@ -37,10 +37,10 @@ const Permission = sequelize.define(
 Permission.associations = (models) => {
   Permission.hasMany(models.PermissionUser, {
     foreignKey: 'permissionId'
-  }),
+  });
   Permission.hasMany(models.PermissionRole, {
     foreignKey: 'permissionId'
-  })
+  });
 };
 
 module.exports = Permission;

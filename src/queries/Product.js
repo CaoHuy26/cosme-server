@@ -1,18 +1,19 @@
 const Product = require('../models/Product');
 
+// async () => { return await Product } == async () => { return Product }
 const getProductById = async (productId) => {
-  return await  Product.findByPk(productId);
+  return Product.findByPk(productId);
 };
 
 const getProducts = async (limit, offset) => {
-  return await Product.findAll({
+  return Product.findAll({
     limit,
     offset
   });
 };
 
 const getProductsByCategory = async (categoryId, limit, offset) => {
-  return await Product.findAll({
+  return Product.findAll({
     limit,
     offset,
     where: {

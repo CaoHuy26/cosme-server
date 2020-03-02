@@ -44,10 +44,10 @@ const OrderStatus = sequelize.define(
 OrderStatus.associations = (models) => {
   OrderStatus.hasMany(models.OrderStatusHistory, {
     foreignKey: 'orderStatusId'
-  }),
+  });
   OrderStatus.hasMany(models.Order, {
     foreignKey: 'orderStatusId'
-  })
+  });
 };
 
 module.exports = OrderStatus;

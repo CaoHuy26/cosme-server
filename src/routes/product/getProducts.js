@@ -2,10 +2,10 @@ const { getProducts, getProductsByCategory } = require('../../queries/Product');
 
 module.exports = async (req, res) => {
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 5;
+  const limit = Number(req.query.limit) || 4;
   const offset = (page - 1) * limit;
 
-  const categoryId = req.query.categoryId;
+  const { categoryId } = req.query;
 
   // TODO: Fix when offset > number of data product
   try {

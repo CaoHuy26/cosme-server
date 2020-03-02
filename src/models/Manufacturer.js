@@ -40,7 +40,7 @@ const Manufacturer = sequelize.define(
 Manufacturer.associations = (models) => {
   Manufacturer.hasMany(models.Brand, {
     foreignKey: 'manufacturerId'
-  })
+  });
 };
 
 module.exports = Manufacturer;

@@ -62,28 +62,28 @@ const User = sequelize.define(
 User.associations = (models) => {
   User.hasMany(models.ProductRating, {
     foreignKey: 'userId'
-  }),
+  });
   User.hasMany(models.ProductReview, {
     foreignKey: 'userId'
-  }),
+  });
   User.hasMany(models.Order, {
     foreignKey: 'userId'
-  }),
+  });
   User.hasMany(models.UserLog, {
     foreignKey: 'userId'
-  }),
+  });
   User.hasOne(models.UserProfile, {
     foreignKey: 'userId'
-  }),
+  });
   User.hasMany(models.UserPhoto, {
     foreignKey: 'userId'
-  }),
+  });
   User.hasMany(models.RoleUser, {
     foreignKey: 'userId'
-  }),
+  });
   User.hasMany(models.PermissionUser, {
     foreignKey: 'userId'
-  })
+  });
 };
 
 module.exports = User;

@@ -1,10 +1,10 @@
-const { getProductById } = require('../../queries/Product');
+const queryProduct = require('../../queries/product');
 
 module.exports = async (req, res) => {
   const { productId } = req.params;
 
   try {
-    const product = await getProductById(productId);
+    const product = await queryProduct.getProductById(productId);
 
     if (product) {
       res.status(200).json({

@@ -1,5 +1,4 @@
 const { Op } = require('sequelize');
-
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
@@ -67,5 +66,51 @@ const multiInnerJoin = async () => {
   console.log(res)
 }
 
+const axios = require('axios')
 
-multiInnerJoin()
+const api = async () => {
+  const res = await axios.get('https://makeup-api.herokuapp.com/api/v1/products.json?product_type=blush');
+  const { data } = res;
+  data.map(product => {
+    const { brand, name, price } = product;
+    console.log(brand, name, price)
+  })
+}
+
+// api()
+
+const searchProducts = async (params) => {
+  const {
+    limit,
+    offset,
+    categoryId,
+    brandId,
+    stock
+  } = params;
+  let whereClause = {
+    limit,
+    offset
+  };
+  
+  if (categoryId) {
+    whereClause.categoryId = categoryId
+  }
+  if (brandId) {
+    whereClause.brandId = brandId
+  }
+  if (stock) {
+    whereClause.stock = {
+      [Op.is]: true
+    }
+  }
+  console.log(whereClause)
+  
+}
+
+const params = {
+  categoryId: 'adsad',
+  brandId: 'asdasd',
+  stock: 1
+}
+
+searchProducts(params)

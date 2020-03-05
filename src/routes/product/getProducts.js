@@ -1,20 +1,20 @@
-const { getProducts, getProductsByCategory } = require('../../queries/Product');
+const queryProduct = require('../../queries/product');
 
 module.exports = async (req, res) => {
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 4;
+  const { query } = req;
+  const page = Number(query.page) || 1;
+  const limit = Number(query.limit) || 4;
   const offset = (page - 1) * limit;
-
-  const { categoryId } = req.query;
 
   // TODO: Fix when offset > number of data product
   try {
     let products = null;
-    if (categoryId) {
-      products = await getProductsByCategory(categoryId, limit, offset);
+    if (query) {
+      products = await queryProduct.getProductsByAttribute(limit, offset, query);
     }
     else {
-      products = await getProducts(limit, offset);
+      // Get all products
+      products = await queryProduct.getProducts(limit, offset);
     }
     
     res.status(200).json({
@@ -23,6 +23,7 @@ module.exports = async (req, res) => {
       page,
       limit,
       offset,
+      query,
       msg: 'Get all product success',
       data: products
     });

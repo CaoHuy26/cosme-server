@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     });
   }
   catch (err) {
-    res.status(200).json({
+    res.status(500).json({
       statusCode: 500,
       susscess: false,
       msg: `Error: ${err}`,

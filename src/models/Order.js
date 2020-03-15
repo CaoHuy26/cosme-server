@@ -18,6 +18,7 @@ const schema = {
   },
   orderStatusId: {
     type: DataTypes.UUID,
+    defaultValue: 2, //sending request
     allowNull: false
   },
   receiverName: {
@@ -88,6 +89,10 @@ Order.belongsTo(OrderStatus, {
 
 Order.belongsTo(User, {
   foreignKey: 'userId'
+});
+
+Order.beforeUpdate(async order => {
+  order.updatedAt = new Date();
 });
 
 module.exports = Order;

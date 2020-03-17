@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
 
 module.exports = async (req, res) => {
@@ -19,10 +20,18 @@ module.exports = async (req, res) => {
       email,
       password,
     });
+    // Generate token
+    const payload = {
+      user: newUser
+    };
+    const signedToken = jwt.sign(payload, 'jwt_secret_asdasd');
+    const token = 'Bearer ' + signedToken;
     res.status(200).json({
       statusCode: 200,
       susscess: true,
-      newUser
+      msg: 'Create user sucess',
+      user: newUser,
+      token
     });
   }
 };

@@ -1,9 +1,44 @@
 const { Op } = require('sequelize');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
+const User = require('../models/User')
 
 const Brand = require('../models/Brand');
 const Manufacturer = require('../models/Manufacturer');
+
+const Order = require('../models/Order')
+const OrderProduct = require('../models/OrderProduct');
+
+const getProduct = async () => {
+  const res = await OrderProduct.findAll({
+    raw: true,
+    attributes: ['price', 'quantity'],
+    include: [
+      {
+        model: Product,
+        attributes: ['name'],
+        required: true
+      },
+      {
+        model: Order,
+        attributes: ['receiverName', 'receiverPhone', 'shippingAddress', 'shippingDate', 'total'],
+        required: true,
+        include: [{
+          model: User,
+          attributes: ['email'],
+          required: true
+        }],
+        where: {
+          id: '4238b778-3df7-456b-96f3-86d69e08ef36'
+        }
+      }
+    ]
+  });
+
+  console.log(res);
+}
+
+getProduct();
 
 const getData = async () => {
   const res = await Product.findAll({
@@ -113,4 +148,3 @@ const params = {
   stock: 1
 }
 
-searchProducts(params)

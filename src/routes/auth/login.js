@@ -1,34 +1,35 @@
-const User = require('../../models/User');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
-module.exports = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({
-    where: {
-      email
-    }
-  });
-  if (!user) {
-    res.status(200).json({
-      statusCode: 500,
-      success: false,
-      message: `User ${email} is not exist`
-    });
-  }
-  else {
-    if (user.password !== password) {
-      res.status(200).json({
-        statusCode: 500,
+module.exports = (req, res) => {
+  passport.authenticate('login', { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({
+        statusCode: 400,
         success: false,
-        message: `Password is does not match for user ${user.email}`
-      });
+        msg: 'Login fail',
+        info
+      })
     }
-    else {
+    req.login(user, {session: false}, err => {
+      if (err) {
+        res.send(err);
+      }
+      const payload = {
+        user: req.user
+      };
+      const signedToken = jwt.sign(payload, 'jwt_secret_asdasd');
+      const token = 'Bearer ' + signedToken;
+      // const decoded = jwt.decode(token, {complete: true})
+      // console.log(decoded);
+      
       res.status(200).json({
         statusCode: 200,
         success: true,
-        message: 'Login success',
-        user: req.body
-      });
-    }
-  }
+        msg: 'Login success',
+        user: req.user,
+        token
+      })
+    });
+  })(req, res)
 };

@@ -18,7 +18,7 @@ module.exports = (req, res) => {
       const payload = {
         user: req.user
       };
-      const signedToken = jwt.sign(payload, 'jwt_secret_asdasd');
+      const signedToken = jwt.sign(payload, process.env.JWT_SECRET_TOKEN);
       const token = 'Bearer ' + signedToken;
       // const decoded = jwt.decode(token, {complete: true})
       // console.log(decoded);

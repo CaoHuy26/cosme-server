@@ -1,8 +1,11 @@
+const dotenv = require('dotenv');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../models/User');
+
+dotenv.config();
 
 // Hàm được gọi khi xác thực thành công để lưu thông tin user vào session
 passport.serializeUser((user, done) => {
@@ -54,11 +57,11 @@ passport.use('login', new LocalStrategy(
 
 let jwtOpts = {};
 jwtOpts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-jwtOpts.secretOrKey = 'jwt_secret_asdasd';
+jwtOpts.secretOrKey = process.env.JWT_SECRET_TOKEN;
 
 passport.use(new JwtStrategy(jwtOpts, async (jwt_payload, done) => {
     try {
-      console.log(`jwt_payload: ${JSON.stringify(jwt_payload, null, 4)}`);
+      // console.log(`jwt_payload: ${JSON.stringify(jwt_payload, null, 4)}`);
       const { id } = jwt_payload.user;
       const user = await User.findOne({
         where: {

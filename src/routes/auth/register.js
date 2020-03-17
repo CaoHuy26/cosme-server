@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     const payload = {
       user: newUser
     };
-    const signedToken = jwt.sign(payload, 'jwt_secret_asdasd');
+    const signedToken = jwt.sign(payload, process.env.JWT_SECRET_TOKEN);
     const token = 'Bearer ' + signedToken;
     res.status(200).json({
       statusCode: 200,

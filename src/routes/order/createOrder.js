@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     for (let i = 0; i < products.length; i++) {
       newOrderProducts.push(
         await OrderProduct.create({
-          productId: products[i].productId,
+          productId: products[i].id,
           quantity: products[i].quantity,
           price: products[i].price,
           orderId: newOrder.getDataValue('id')

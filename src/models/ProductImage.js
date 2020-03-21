@@ -16,7 +16,7 @@ const schema = {
     allowNull: false
   },
   image: { // path
-    tpye: DataTypes.STRING,
+    type: DataTypes.STRING(200),
     allowNull: false
   },
   isThumbnail: {

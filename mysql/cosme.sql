@@ -11,7 +11,7 @@ CREATE TABLE `category` (
   `id` VARCHAR(45) PRIMARY KEY,
   `en_name` VARCHAR(45) NOT NULL,
   `vn_name` VARCHAR(45) NOT NULL,
-  `imageUrl` VARCHAR(45),
+  `imageUrl` VARCHAR(200),
   `createdAt` DATETIME,
   `updatedAt` DATETIME
 );

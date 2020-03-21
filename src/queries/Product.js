@@ -1,5 +1,9 @@
 const { Op } = require('sequelize');
 const Product = require('../models/Product');
+const ProductImage = require('../models/ProductImage');
+const ProductRating = require('../models/ProductRating');
+const ProductReview = require('../models/ProductReview');
+const OrderProduct = require('../models/OrderProduct');
 
 const queryProduct = {
   // async () => { return await Product } == async () => { return Product }
@@ -10,7 +14,31 @@ const queryProduct = {
     });
   },
   getProductById: async (productId) => {
-    return Product.findByPk(productId);
+    const product = await Product.findByPk(productId);
+    if (!product) {
+      return null;
+    }
+    
+    const productImages = await ProductImage.findAll({
+      raw: true,
+      attributes: ['image'],
+      include: [{
+        model: Product,
+        required: true,
+        attributes: [],
+        where: {
+          id: productId
+        }
+      }]
+    });
+    // Change image object to string
+    let images = [];
+    for (productImage of productImages) {
+      images.push(productImage.image)
+    }
+    product.dataValues.images = images;
+    
+    return product;
   },
   // Filter
   getProductsByAttribute: async (limit, offset, query) => {
@@ -51,6 +79,36 @@ const queryProduct = {
       offset,
       where: whereClause
     });
+  },
+
+  deleteProductById: async productId => {
+    await Promise.all([
+      ProductImage.destroy({
+        where: {
+          productId
+        }
+      }),
+      ProductRating.destroy({
+        where: {
+          productId
+        }
+      }),
+      ProductReview.destroy({
+        where: {
+          productId
+        }
+      }),
+      OrderProduct.destroy({
+        where: {
+          productId
+        }
+      }),
+      Product.destroy({
+        where: {
+          id: productId
+        }
+      })
+    ]);
   }
 };
 

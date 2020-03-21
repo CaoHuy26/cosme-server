@@ -1,16 +1,14 @@
 const Product = require('../../models/Product');
+const queryProduct = require('../../queries/Product');
 
 module.exports = async (req, res) => {
   const { productId } = req.params;
   
   try {
-    const result = await Product.destroy({
-      where: {
-        id: productId
-      }
-    });
-    
-    if (result === 1) {
+    const product = await Product.findByPk(productId);
+
+    if (product) {
+      queryProduct.deleteProductById(productId);
       res.status(200).json({
         statusCode: 200,
         success: true,

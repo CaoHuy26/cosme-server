@@ -16,7 +16,7 @@ TABLE category {
   id VARCHAR(45) [pk]
   en_name VARCHAR(45) [not null]
   vn_name VARCHAR(45) [not null]
-  imageUrl VARCHAR(45)
+  imageUrl VARCHAR(200)
   createdAt DATETIME
   updatedAt DATETIME
 }

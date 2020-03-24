@@ -1,45 +1,16 @@
-const Order = require('../../models/Order');
-const OrderProduct = require('../../models/OrderProduct');
-const Product = require('../../models/Product');
-const User = require('../../models/User');
+const queryOrder = require('../../queries/Order');
 
 module.exports = async (req, res) => {
   const { orderId } = req.params;
   try {
-    const order = await Order.findByPk(orderId);
+    const order = await queryOrder.getOrderById(orderId);
     if (order) {
-      const orderProducts = await OrderProduct.findAll({
-        raw: true,
-        attributes: ['price', 'quantity'],
-        include: [
-          {
-            model: Product,
-            attributes: ['name'],
-            required: true
-          },
-          {
-            model: Order,
-            attributes: [],
-            required: true,
-            include: [{
-              model: User,
-              attributes: ['email'],
-              required: true
-            }],
-            where: {
-              id: orderId
-            }
-          }
-        ]
-      });
-
       res.status(200).json({
         statusCode: 200,
         success: true,
         msg: `Get Order ${orderId} success`,
         data: {
-          order,
-          orderProducts
+          order
         }
       });
     }

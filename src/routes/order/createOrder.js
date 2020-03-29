@@ -1,12 +1,14 @@
+const axios = require('axios');
 const Order = require('../../models/Order');
 const OrderProduct = require('../../models/OrderProduct');
 const OrderStatusHistory = require('../../models/OrderStatusHistory');
+const convertTime = require('../../utils/convertTime');
 
 module.exports = async (req, res) => {
   try {
     const newOrder = await Order.create(req.body);
     
-    const { products } = req.body;
+    const { userId, products } = req.body;
     let newOrderProducts = [];
     for (let i = 0; i < products.length; i++) {
       newOrderProducts.push(
@@ -22,6 +24,12 @@ module.exports = async (req, res) => {
     await OrderStatusHistory.create({
       orderId: newOrder.getDataValue('id'),
       orderStatusId: newOrder.getDataValue('orderStatusId')
+    });
+
+    await axios.post(`${process.env.API_URL}/notification`, {
+      userId,
+      notification: `Đặt hàng thành công ${newOrder.getDataValue('id')}`,
+      time: convertTime(new Date())
     });
 
     res.status(200).json({

@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const uuid = require('uuid/v4');
+const uniquid = require('uniquid');
 const sequelize = require('../configs/sequelize');
 
 const OrderStatus = require('./OrderStatus');
@@ -10,7 +10,7 @@ const schema = {
     type: DataTypes.UUID,
     primaryKey: true,
     allowNull: false,
-    defaultValue: () => uuid()
+    defaultValue: () => uniquid('o')
   },
   userId: {
     type: DataTypes.UUID,

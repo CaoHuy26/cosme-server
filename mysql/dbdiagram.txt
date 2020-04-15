@@ -1,3 +1,6 @@
+https://dbdiagram.io/d/5e5d26284495b02c3b87ab2c
+-> EMAIL
+
 //// -- LEVEL 1
 //// -- Tables and References
 

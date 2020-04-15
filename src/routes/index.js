@@ -7,6 +7,7 @@ const authRouter = require('./auth');
 const productRouter = require('./product');
 const orderRouter = require('./order');
 const notificationRouter = require('./notification');
+const searchRouter = require('./seach');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
@@ -26,5 +27,6 @@ router.use('/auth', authRouter);
 router.use('/p', productRouter);
 router.use('/o', orderRouter);
 router.use('/notification', notificationRouter);
+router.use('/search', searchRouter);
 
 module.exports = router;

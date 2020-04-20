@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
     res.status(200).json({
       statusCode: 200,
       success: true,
-      msg: 'Register sucess',
+      msg: 'Register success',
       user: newUser,
       token
     });

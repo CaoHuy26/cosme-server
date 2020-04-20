@@ -11,7 +11,7 @@ const elasticIndex = require('../constants/elasticIndex');
  *  - category
  *  - brand
  */
-searchRouter.post('/', async (req, res) => {
+searchRouter.get('/', async (req, res) => {
   const { name, category, brand } = req.query;
   // Search by product attribute
   try {
@@ -35,7 +35,8 @@ searchRouter.post('/', async (req, res) => {
             bool: {
               must: conditions
             }
-          }
+          },
+          _source: ["id", "name", "price", "rating", "imageUrl"]
         }
       });
       const products = data.hits.hits;

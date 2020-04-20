@@ -11,8 +11,9 @@ module.exports = async (req, res) => {
   if (user) {
     res.status(200).json({
       statusCode: 500,
-      susscess: false,
-      message: `${email} already in use`
+      success: false,
+      msg: `${email} already in use`,
+      user: null
     });
   }
   else {
@@ -28,8 +29,8 @@ module.exports = async (req, res) => {
     const token = 'Bearer ' + signedToken;
     res.status(200).json({
       statusCode: 200,
-      susscess: true,
-      msg: 'Create user sucess',
+      success: true,
+      msg: 'Register sucess',
       user: newUser,
       token
     });

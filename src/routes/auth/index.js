@@ -2,14 +2,11 @@ const authRouter = require('express').Router();
 const login = require('./login');
 const register = require('./register');
 
-const { 
-  userValidationLoginRules,
-  userValidationRegisterRules,
-  validate 
-} = require('../../middlewares/validator');
+const { loginValidate, loginValidationRules } = require('../../middlewares/validators/loginValidation');
+const { registerValidate, registerValidationRules } = require('../../middlewares/validators/registerValidation');
 
-authRouter.post('/login', userValidationLoginRules(), validate, login);
+authRouter.post('/login', loginValidationRules(), loginValidate, login);
 
-authRouter.post('/register', userValidationRegisterRules(), validate, register);
+authRouter.post('/register', registerValidationRules(), registerValidate, register);
 
 module.exports = authRouter;

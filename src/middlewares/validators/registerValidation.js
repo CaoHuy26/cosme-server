@@ -1,41 +1,32 @@
 const { body, validationResult } = require('express-validator');
 
-const userValidationLoginRules = () => {
+const registerValidationRules = () => {
   return [
     body('email')
       .notEmpty().withMessage('Email is required')
       .isEmail().withMessage('Email is invalid'),
     body('password')
       .notEmpty().withMessage('Password is required')
-  ];
-};
-
-const userValidationRegisterRules = () => {
-  return [
-    body('email')
-      .notEmpty().withMessage('Email is required')
-      .isEmail().withMessage('Email is invalid'),
-    body('password')
       .isLength({ min: 5 }).withMessage('Password must be at least 5 characters'),
   ];
 };
 
-const validate = (req, res, next) => {
+const registerValidate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
 
-  return res.status(422).json({ 
+  // .status(422)
+  return res.json({ 
     statusCode: 422,
     success: false,
-    message: 'Login fail',
+    msg: 'Register fail',
     errors: errors.array()
   });
 };
 
 module.exports = {
-  userValidationLoginRules,
-  userValidationRegisterRules,
-  validate
+  registerValidationRules,
+  registerValidate
 };

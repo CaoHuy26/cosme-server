@@ -17,8 +17,14 @@ const schema = {
   },
   image: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    defaultValue: ''
   },
+  // isAvatar: {
+  //   type: DataTypes.BOOLEAN,
+  //   allowNull: false,
+  //   defaultValue: false
+  // },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

@@ -8,3 +8,6 @@ docker/*
 !docker/.gitkeep
 
 docs/
+
+# Mocha
+report.html
